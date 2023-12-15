@@ -15,7 +15,7 @@ const router = createEdgeRouter<NextRequest, RequestContext>();
 dbConnect();
 
 router.get(allRooms);
-router.post(newRoom);
+router.post(newRoom); // only admins will have access
 
 export async function GET(request: NextRequest, ctx: RequestContext) {
   return router.run(request, ctx);

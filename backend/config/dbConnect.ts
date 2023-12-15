@@ -8,7 +8,7 @@ const dbConnect = async () => {
   let DB_URI: string = '';
 
   if (process.env.NODE_ENV === 'development')
-    DB_URI = process.env.DB_LOCAL_URI!; // the ! tells typescrip that this var will not be undefined or null.
+    DB_URI = process.env.DB_LOCAL_URI!; // the ! tells typescript that this var will not be undefined or null.
 
   if (process.env.NODE_ENV === 'production') DB_URI = process.env.DB_URI!;
 

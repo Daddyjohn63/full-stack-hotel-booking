@@ -9,12 +9,13 @@ interface IValidationError {
 
 export const catchAsyncErrors =
   (handler: HandlerFunction) => async (req: NextRequest, params: any) => {
-    console.log('Request:', req); // Logs the request object
-    console.log('Params:', params); // Logs the params object
+    // console.log('Request:', req); // Logs the request object
+    //console.log('Params:', params); // Logs the params object
     try {
       return await handler(req, params); //handler is the route handler we have on roomContollers.ts
     } catch (error: any) {
-      console.log(error);
+      // console.log(error);
+      //catch / validate mongoose errors
       if (error?.name === 'CastError') {
         error.message = `Resource not found. Invalid ${error?.path}`;
         error.statusCode = 400;

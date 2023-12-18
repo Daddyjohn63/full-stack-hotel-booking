@@ -17,7 +17,18 @@ class APIFilters {
           }
         }
       : {};
+    //console.log(location);
     this.query = this.query.find({ ...location }); //spread in the location object values
+    return this;
+  }
+
+  filter(): APIFilters {
+    const queryCopy = { ...this.queryStr };
+    const removeFields = ['location'];
+    removeFields.forEach(el => delete queryCopy[el]);
+
+    this.query = this.query.find(queryCopy);
+
     return this;
   }
 }

@@ -6,9 +6,7 @@ import APIFilters from '../utils/apiFilters';
 
 //get all rooms => /api/rooms
 export const allRooms = catchAsyncErrors(async (req: NextRequest) => {
-  const resPerPage: number = 8;
-
-  //const rooms = await Room.find();
+  const resPerPage: number = 4;
 
   const { searchParams } = new URL(req.url);
 
@@ -24,7 +22,7 @@ export const allRooms = catchAsyncErrors(async (req: NextRequest) => {
 
   //console.log(queryStr);
 
-  const apiFilters = new APIFilters(Room, queryStr).search(); //pass in the Room model and the query string
+  const apiFilters = new APIFilters(Room, queryStr).search().filter(); //pass in the Room model and the query string
 
   //now return the query from the class and pass into the object below.
   const rooms: IRoom[] = await apiFilters.query; //this calls this.query in the class.

@@ -19,16 +19,24 @@ export const allRooms = catchAsyncErrors(async (req: NextRequest) => {
   searchParams.forEach((value, key) => {
     queryStr[key] = value;
   });
-
   //console.log(queryStr);
+
+  const roomsCount: number = await Room.countDocuments();
 
   const apiFilters = new APIFilters(Room, queryStr).search().filter(); //pass in the Room model and the query string
 
   //now return the query from the class and pass into the object below.
-  const rooms: IRoom[] = await apiFilters.query; //this calls this.query in the class.
+  let rooms: IRoom[] = await apiFilters.query; //this calls this.query in the class.
 
+  const filteredRoomsCount: number = rooms.length;
+
+  apiFilters.pagination(resPerPage);
+  rooms = await apiFilters.query.clone(); //clone() is a mongoose method.
+  // The clone() method creates a new instance of the query with the same conditions and settings as the original, but without the modifications that might be added later. This allows for reusing the base query safely.
   return NextResponse.json({
     success: true,
+    roomsCount,
+    filteredRoomsCount,
     resPerPage,
     rooms
   });

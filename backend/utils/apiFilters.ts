@@ -7,7 +7,7 @@ class APIFilters {
     this.queryStr = queryStr;
   }
 
-  //the search method first sets up the object we wish to use to query the db, it then runs the fins method using this object and saves to this.query, we than return this.
+  //the search method first sets up the object we wish to use to query the db, it then runs the find method using this object and saves to this.query, we than return this.
   search(): APIFilters {
     const location = this.queryStr?.location
       ? {
@@ -21,7 +21,7 @@ class APIFilters {
     this.query = this.query.find({ ...location }); //spread in the location object values
     return this;
   }
-
+  //add filter method (seems to pretty much filter everthing)
   filter(): APIFilters {
     const queryCopy = { ...this.queryStr };
     const removeFields = ['location', 'page'];
@@ -31,7 +31,7 @@ class APIFilters {
 
     return this;
   }
-
+  //add pagination method
   pagination(resPerPage: number): APIFilters {
     const currentPage = Number(this.queryStr?.page) || 1;
     const skip = resPerPage * (currentPage - 1);

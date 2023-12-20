@@ -5,6 +5,9 @@ const nextConfig = {
     DB_LOCAL_URI: 'mongodb://127.0.0.1:27017/bookit-v1',
     DB_URI: ''
   },
+  images: {
+    domains: ['res.cloudinary.com']
+  },
   reactStrictMode: false
 };
 

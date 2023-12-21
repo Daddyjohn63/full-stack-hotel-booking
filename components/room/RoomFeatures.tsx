@@ -4,7 +4,7 @@ interface Props {
   room: IRoom;
 }
 
-const RoomFeatures = ({ room }) => {
+const RoomFeatures = ({ room }: Props) => {
   return (
     <div className="features mt-5">
       <h3 className="mb-4">Features:</h3>

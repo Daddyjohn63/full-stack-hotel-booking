@@ -269,6 +269,7 @@ nav {
 
 .card {
   height: 100%;
+  width: auto;
   border: 0px;
 }
 

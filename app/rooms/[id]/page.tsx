@@ -18,11 +18,13 @@ export default async function RoomDetailsPage({ params }: Props) {
   }
 
   console.log(data);
+
   return <RoomDetails data={data} />;
 }
 
-export async function generateMetaData({ params }: Props) {
+export async function generateMetadata({ params }: Props) {
   const data = await getRoom(params?.id);
+
   return {
     title: data?.room?.name
   };

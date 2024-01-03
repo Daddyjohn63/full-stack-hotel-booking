@@ -23,7 +23,7 @@ class APIFilters {
   }
   //add filter method (seems to pretty much filter everthing)
   filter(): APIFilters {
-    const queryCopy = { ...this.queryStr };
+    const queryCopy = { ...this.queryStr }; //copy the existing query
     const removeFields = ['location', 'page'];
     removeFields.forEach(el => delete queryCopy[el]);
 

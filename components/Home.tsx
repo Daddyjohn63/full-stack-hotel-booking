@@ -1,5 +1,6 @@
 import { IRoom } from '@/backend/models/room';
 import RoomItem from './room/RoomItem';
+import CustomPagination from './layout/CustomPagination';
 
 interface Props {
   data: {
@@ -12,6 +13,7 @@ interface Props {
 
 const Home = ({ data }: Props) => {
   const { rooms, resPerPage, filteredRoomsCount } = data;
+  //available from the api route called in page.tsx which returns all this information.
   return (
     <div>
       <section id="rooms" className="container mt-5">
@@ -29,6 +31,11 @@ const Home = ({ data }: Props) => {
           )}
         </div>
       </section>
+
+      <CustomPagination
+        resPerPage={resPerPage}
+        filteredRoomsCount={filteredRoomsCount}
+      />
     </div>
   );
 };

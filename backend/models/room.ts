@@ -69,7 +69,7 @@ const roomSchema: Schema = new Schema({
       enum: ['Point']
     },
     coordinates: {
-      type: [Number], //an array of 2 numbers
+      type: [Number], //an array of 2 numbers (lat and long)
       index: '2dsphere' //geospatial data
     },
     formattedAddress: String,

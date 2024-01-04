@@ -43,7 +43,7 @@ export interface IRoom extends Document {
   createdAt: Date;
 }
 
-const roomSchema: Schema = new Schema({
+const roomSchema: Schema<IRoom> = new Schema({
   name: {
     type: String,
     required: [true, 'Please enter room name'],
@@ -86,7 +86,7 @@ const roomSchema: Schema = new Schema({
     type: Number,
     required: [true, 'Please enter number of beds in the room']
   },
-  internet: {
+  isInternet: {
     type: Boolean,
     default: false
   },

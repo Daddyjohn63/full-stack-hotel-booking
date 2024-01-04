@@ -1,3 +1,6 @@
+'use client';
+
+import { SessionProvider } from 'next-auth/react';
 import { Toaster } from 'react-hot-toast';
 
 export function GlobalProvider({ children }: { children: React.ReactNode }) {
@@ -5,7 +8,7 @@ export function GlobalProvider({ children }: { children: React.ReactNode }) {
     <>
       {/* Toaster must be added at the top */}
       <Toaster />
-      {children}
+      <SessionProvider>{children}</SessionProvider>
     </>
   );
 }

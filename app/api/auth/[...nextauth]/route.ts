@@ -10,6 +10,10 @@ type Credentials = {
   password: string;
 };
 
+type Token = {
+  user: IUser;
+};
+
 async function auth(req: NextApiRequest, res: NextApiResponse) {
   return await nextAuth(req, res, {
     session: {
@@ -24,6 +28,7 @@ async function auth(req: NextApiRequest, res: NextApiResponse) {
           const { email, password } = credentials;
 
           const user = await User.findOne({ email }).select('+password');
+          //console.log('USER FROM ROUTE:', user);
 
           if (!user) {
             throw new Error('Invalid email or password');
@@ -36,19 +41,27 @@ async function auth(req: NextApiRequest, res: NextApiResponse) {
             throw new Error('Invalid email or password');
           }
           return user;
+          //returns a user object with _id, name, email, password (encrypted), role and date created.
         }
       })
     ],
     callbacks: {
+      //is used when we create a JWT at sign-in
       jwt: async ({ token, user }) => {
-        // console.log('token=>', token);
-        // console.log('user=>', user);
-        user && (token.user = user);
+        const jwtToken = token as Token;
 
-        //TODO - update session when user is updated
+        user && (token.user = user); //The line user && (token.user = user); is a conditional statement. It checks if user is truthy (i.e., it exists and is not null, undefined, or false). If true, it assigns the user object to a new property named user within the token object.
+
+        if (req.url?.includes('/api/auth/session?update')) {
+          //hit the database and return the updated user
+          const updatedUser = await User.findById(jwtToken?.user._id);
+          token.user = updatedUser;
+        }
 
         return token;
       },
+
+      //now add the token into the session
       session: async ({ session, token }) => {
         session.user = token.user as IUser;
 
@@ -59,6 +72,9 @@ async function auth(req: NextApiRequest, res: NextApiResponse) {
 
         return session;
       }
+    },
+    pages: {
+      signIn: '/login'
     },
     secret: process.env.NEXTAUTH_SECRET
   });

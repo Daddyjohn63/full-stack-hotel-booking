@@ -8,6 +8,7 @@ import { toast } from 'react-hot-toast';
 import ButtonLoader from '../layout/ButtonLoader';
 //import ButtonLoader from '../layout/ButtonLoader';
 
+//create state
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

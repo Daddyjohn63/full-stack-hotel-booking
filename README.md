@@ -1,3 +1,11 @@
+HTML files
+
+https://github.com/ghulamabbas2/bookitv2-html
+
+Source code
+
+https://github.com/ghulamabbas2/bookit-v2
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

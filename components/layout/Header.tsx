@@ -1,11 +1,24 @@
 'use client';
 
+import { setIsAuthenticated, setUser } from '@/redux/features/userSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const Header = () => {
-  const { data } = useSession();
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector(state => state.auth);
+  //console.log('USER:', user);
+  const { data } = useSession(); //get the session data
+  // console.log('DATA:', data);
+  //useEffect to pass the session data into our state. This can now be used by any component in our app.
+  useEffect(() => {
+    if (data) {
+      dispatch(setUser(data?.user));
+      dispatch(setIsAuthenticated(true));
+    }
+  }, [data]);
 
   //console.log(data);
 
@@ -29,7 +42,7 @@ const Header = () => {
         </div>
 
         <div className="col-6 col-lg-3 mt-3 mt-md-0 text-end">
-          {data?.user ? (
+          {user ? (
             <div className="ml-4 dropdown d-line">
               <button
                 className="btn dropdown-toggle"
@@ -42,9 +55,9 @@ const Header = () => {
                   <img
                     src={
                       // @ts-ignore
-                      data?.user?.avatar
+                      user?.avatar
                         ? // @ts-ignore
-                          data?.user?.avatar?.url
+                          user?.avatar?.url
                         : '/images/default_avatar.jpg'
                     }
                     alt="John Doe"
@@ -53,10 +66,8 @@ const Header = () => {
                     width="50"
                   />
                 </figure>
-                <span className="placeholder-glow ps-1">
-                  {' '}
-                  {data?.user?.name}
-                </span>
+                {/* @ts-ignore */}
+                <span className="placeholder-glow ps-1"> {user?.name}</span>
               </button>
 
               <div
